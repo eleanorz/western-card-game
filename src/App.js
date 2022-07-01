@@ -18,6 +18,54 @@ function shuffle(array) {
   return array;
 }
 
+class westernCard {
+  constructor(
+    ...{
+      gunType,
+      hitPoints,
+      displayName,
+      actionType,
+      isDisplayed,
+      isInHand,
+      playerId,
+      isInDeck,
+      isInDiscard
+    }
+  ) {
+    this.gunType = gunType;
+    this.hitPoints = hitPoints;
+    this.displayName = displayName;
+    this.actionType = actionType;
+  }
+
+  getCardType() {
+    return this.actionType;
+  }
+}
+
+class Polygon {
+  constructor(...sides) {
+    this.sides = sides;
+  }
+  // Method
+  *getSides() {
+    for (const side of this.sides) {
+      yield side;
+    }
+  }
+}
+
+const pentagon = new Polygon(1, 2, 3, 4, 5);
+
+console.log([...pentagon.getSides()]); // [1,2,3,4,5]
+
+const westernConversionChart = [
+  new westernCard("default", 1, "howitzer", "shoot"),
+  new westernCard("default", 1, "howitzer", "shoot"),
+  new westernCard("default", 1, "howitzer", "shoot"),
+  new westernCard("default", 1, "howitzer", "shoot")
+];
+
 const allCards = [
   {
     svg: (
@@ -883,6 +931,14 @@ export function App() {
   const [countTakenCards, setCountTakenCards] = useState("");
 
   const handleShuffle = () => setCards([...shuffle(allCards)]);
+
+  let generateBlankWesternDeckChart = [];
+
+  for (let tempCounter = 0; tempCounter < 13; tempCounter++) {
+    generateBlankWesternDeckChart.concat(westernConversionChart);
+  }
+
+  console.log(generateBlankWesternDeckChart);
 
   const handleSubmitTakenCards = useCallback(
     (event) => {
